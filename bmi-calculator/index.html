@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>BMI Calculator</title>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+
+    <!-- Simple Grid CSS: https://simplegrid.io/ -->
+    <link rel='stylesheet' type="text/css" href="./src/css/simple-grid.css" />
+
+    <!-- Relax CSS: https://ziyadsk.github.io/relaxCSS/ -->
+    <link rel='stylesheet' type="text/css" href="./src/css/relaxCSS.css" />
+
+    <!-- Custom CSS -->
+    <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
+
+    <style>
+        #bmi {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+            color: #2B44B4;
+        }
+
+        img {
+            opacity: 0.2;
+        }
+    </style>
+
+    <!--
+      Temporarily disable cerner-smart-embeddable-lib
+      <link rel='stylesheet' type='text/css' href='./lib/css/cerner-smart-embeddable-lib-1.0.0.min.css'>
+    -->
+
+</head>
+
+    <body>
+
+        <div id='errors'>
+        </div>
+
+        <div id="loading" class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+
+        <div id='holder' class="container text-container">
+            <div class="row center-text">
+                <div class="col-12">
+                    <h1>BMI Calculator</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <h2 class="center-text">Patient Resource</h2>
+                    <table class="tab center">
+                        <tr>
+                            <th>First Name:</th>
+                            <td id='fname'></td>
+                        </tr>
+                        <tr>
+                            <th>Last Name:</th>
+                            <td id='lname'></td>
+                        </tr>
+                        <tr>
+                            <th>Gender:</th>
+                            <td id='gender'></td>
+                        </tr>
+                        <tr>
+                            <th>Date of Birth:</th>
+                            <td id='birthdate'></td>
+                        </tr>                        
+                    </table>
+                </div>
+
+                <div class="col-8 center-text">
+                    <h2>Body Mass Index (BMI)</h2>
+                    <div id="bmi"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <h2 class="center-text">Observation & Medication Resources</h2>
+                    <table class="tab center">
+                        <tr>
+                            <th>Height:</th>
+                            <td id='height'></td>
+                        </tr>
+                        <tr>
+                            <th>Weight:</th>
+                            <td id='weight'></td>
+                        </tr>                        
+                    </table>
+                </div>
+
+                <div class="col-8 center-text">
+                    <img src="./src/images/logo.png" alt="W01: FHIR Starter - Building your first SMART on FHIR app" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Required JS files to enable this page to embed within an MPage -->
+        <!--
+            Temporarily disable cerner-smart-embeddable-lib
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js'></script>
+            <script src='./lib/js/cerner-smart-embeddable-lib-1.0.0.min.js'></script>
+        -->
+
+        <!-- Application-level javascript-->
+        <script src='./src/js/example-smart-app.js'></script>
+
+        <!-- FHIR Client JS Library -->
+        <script src='./lib/js/fhir-client-v0.1.12.js'></script>
+
+        <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
+        <!-- https://github.com/cerner/fhir-client-cerner-additions -->
+        <script src='./lib/js/fhir-client-cerner-additions-1.0.0.js'></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+        <script>
+            extractData().then(
+
+                //Display Patient Demographics and Observations if extractData was success
+                function (p) {
+                    drawVisualization(p);
+                },
+
+                //Display 'Failed to call FHIR Service' if extractData failed
+                function () {
+                    $('#loading').hide();
+                    $('#errors').html('<p> Failed to call FHIR Service </p>');
+                }
+            );
+        </script>
+
+    </body>
+
+</html>
