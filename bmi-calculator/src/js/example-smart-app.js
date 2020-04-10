@@ -14,7 +14,7 @@
                 var patient = smart.patient;
                 var pt = patient.read();
                 var obv = smart.patient.api.fetchAll({
-                    type: 'Observation',
+                    type: /* [Insert FHIR resource type here] */,
                     query: {
                         code: {
                             $or: [
@@ -24,6 +24,7 @@
                                 'http://loinc.org|8308-9',     // Height [standing]
                                 'http://loinc.org|8306-3',     // Height [lying]
                                 'http://loinc.org|8301-4',     // Height [estimated]
+
                                 'http://loinc.org|29463-7',    // Weight
                                 'http://loinc.org|3141-9',     // Weight
                                 'http://loinc.org|18833-4',    // Weight
@@ -50,8 +51,9 @@
                         lname = patient.name[0].family.join(' ');
                     }
 
-                    var height = byCodes('8302-2', '3137-7', '3138-5', '8308-9', '8306-3');
-                    var weight = byCodes('29463-7', '3141-9', '18833-4');
+                    // Create arrays of JSON objects
+                    var height = byCodes('8302-2', '3137-7', /* [Copy/paste remaining LOINC codes for height here] */);
+                    var weight = byCodes('29463-7', '3141-9', /* [Copy/paste remaining LOINC codes for weight here] */);
 
                     // Set default patient object
                     var p = defaultPatient();
@@ -64,6 +66,7 @@
 
                     // Height
                     p.height = getQuantityValueAndUnit(height[0]);
+                    p.height = JSON.stringify(height[0]) // Delete this line
 
                     // Weight
                     p.weight = getQuantityValueAndUnit(weight[0]);
@@ -71,8 +74,6 @@
                     // Calculate BMI
                     p.bmi = (getQuantityValue(weight[0]) / (Math.pow((getQuantityValue(height[0]) / 100), 2))).toFixed(1);
 
-                    p.height_check = getDate(height[0]);
-                                
                     ret.resolve(p);
 
                 });
@@ -96,7 +97,6 @@
             height: { value: '' },
             weight: { value: '' },
             bmi: { value: '' },
-            height_check: { value: '' },
         };
     }
 
@@ -120,9 +120,7 @@
 
         if (typeof ob != 'undefined' &&
             typeof ob.valueQuantity != 'undefined' &&
-            typeof ob.valueQuantity.value != 'undefined' &&
-            typeof ob.valueQuantity.value == 'number' &&
-            typeof ob.valueQuantity.unit != 'undefined') {
+            typeof ob.valueQuantity.value != 'undefined') {
 
             return ob.valueQuantity.value;
 
@@ -130,18 +128,6 @@
             return undefined;
         }
     }
-    /*
-    function getDate(ob) {
-
-        if (typeof ob != 'undefined' &&
-            typeof ob.effectiveDateTime != 'undefined') {
-
-            return ob.effectiveDateTime;
-        } else {
-            return undefined;
-        }
-    }
-    */
 
     // Draw, show, or hide corresponding HTML on index page
     window.drawVisualization = function (p) {
@@ -157,4 +143,3 @@
     };
 
 })(window);
-
