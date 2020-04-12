@@ -2,9 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\bmi-calculator",
+    "\\bmi-calculator\\lib",
+    "\\bmi-calculator\\lib\\css",
+    "\\bmi-calculator\\lib\\js",
     "\\bmi-calculator\\src",
+    "\\bmi-calculator\\src\\css",
+    "\\bmi-calculator\\src\\images",
     "\\bmi-calculator\\src\\js"
   ],
-  "SelectedNode": "\\bmi-calculator",
+  "SelectedNode": "\\bmi-calculator\\src\\js\\example-smart-app.js",
   "PreviewInSolutionExplorer": false
 }
