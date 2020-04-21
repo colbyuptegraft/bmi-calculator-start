@@ -66,7 +66,7 @@
 
                     // Height
                     p.height = getQuantityValueAndUnit(height[0]);
-                    p.height = JSON.stringify(height[0]) // Delete this line
+                    p.height = JSON.stringify(height[0]) // Delete this line when instructed
 
                     // Weight
                     p.weight = getQuantityValueAndUnit(weight[0]);
