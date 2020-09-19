@@ -1,4 +1,4 @@
-# SMART on FHIR Example App: BMI Calculator
+# SMART on FHIR Example App: BMI Calculator [Start]
 Open the Tutorial PDF above to get started
 
 # Description
