@@ -13,7 +13,7 @@ This repository was originally forked from https://github.com/cerner/smart-on-fh
 6) Familiarity with HTML/CSS/JavaScript (helpful)
 
 # License
-Copyright 2020 Colby Uptegraft
+Copyright 2021 Colby Uptegraft
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
